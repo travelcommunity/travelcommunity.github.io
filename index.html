@@ -18,9 +18,7 @@
 	<script src="https://cdn.rawgit.com/aimore/340588f8cc3b7f3ee37ec3bd95ac774a/raw/db1ae5db83bca2a395f68bd1097a601f46a02ebc/Leaflet.Instagram.Cluster.js"></script>		
 	<script>
 
-	var map = L.map('map', {
-		maxZoom: 15
-	}).fitBounds([[59.22, 5.78], [59.28,5.89]]);
+	var map = L.map('map', {doubleClickZoom: true}).locate({setView: true, maxZoom: 16});
 
 	L.tileLayer('https://api.mapbox.com/v4/aimore.cifo2gn8p01c3uckn586v7jlu/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYWltb3JlIiwiYSI6ImNpZm8yZ25meDAxYnpzeGx4dTUzYTgzZHMifQ.w-GIOKHTYQt6fEs--_VbHA', {
 		attribution: '&copy; <a href="http://www.mapbox.com/about/maps/">Terms &amp; Feedback</a>'
