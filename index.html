@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,21 +16,34 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/reqwest/2.0.5/reqwest.min.js"></script>
 	<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
 	<script src="https://cdn.rawgit.com/aimore/d4fe7329b7d2371ccd6a573fb686d60c/raw/81a3270eecc4072383df9215350cf9588ae0b26a/leaflet.markercluster.js"></script>			
-	<script src="https://cdn.rawgit.com/aimore/340588f8cc3b7f3ee37ec3bd95ac774a/raw/db1ae5db83bca2a395f68bd1097a601f46a02ebc/Leaflet.Instagram.Cluster.js"></script>		
+	<script src="https://cdn.rawgit.com/aimore/340588f8cc3b7f3ee37ec3bd95ac774a/raw/db1ae5db83bca2a395f68bd1097a601f46a02ebc/Leaflet.Instagram.Cluster.js"></script>	
 	<script>
 
-	var map = L.map('map', {
-		maxZoom: 15
-	}).fitBounds([[59.22, 5.78], [59.28,5.89]]);
-
+	var map = L.map('map');
 	L.tileLayer('https://api.mapbox.com/v4/aimore.cifo2gn8p01c3uckn586v7jlu/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiYWltb3JlIiwiYSI6ImNpZm8yZ25meDAxYnpzeGx4dTUzYTgzZHMifQ.w-GIOKHTYQt6fEs--_VbHA', {
+		maxZoom: 18,
 		attribution: '&copy; <a href="http://www.mapbox.com/about/maps/">Terms &amp; Feedback</a>'
 	}).addTo(map);
 
 	L.instagram('https://api.instagram.com/v1/users/217783145/media/recent?access_token=217783145.ff04465.e645f7fa04024ffc922e95d671ab9cab').addTo(map); 
 
+	function onLocationFound(e) {
+			var radius = e.accuracy / 2;
+
+			L.marker(e.latlng).addTo(map)
+				.bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+			L.circle(e.latlng, radius).addTo(map);
+		}
+
+		function onLocationError(e) {
+			alert(e.message);
+		}
+
+		map.on('locationfound', onLocationFound);
+		map.on('locationerror', onLocationError);
+
+		map.locate({setView: true, maxZoom: 16});
 	</script>
 </body>
 </html>
-
-
